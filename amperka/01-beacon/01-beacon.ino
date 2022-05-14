@@ -3,6 +3,9 @@
 void setup() {
   // put your setup code here, to run once:
   pinMode(BEACON_PIN, OUTPUT);
+
+  digitalWrite(BEACON_PIN, HIGH);
+  delay(3000-375);
 }
 
 void loop() {
