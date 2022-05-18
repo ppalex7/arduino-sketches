@@ -5,7 +5,9 @@ unsigned long lastDebugPrintTime;
 int lastLoggedRotation;
 
 void setup() {
+  // можно не делать, так как пины по умолчанию в состоянии INPUT
   pinMode(CONTROL_PIN, INPUT);
+  // тоже необязательно, критично для digitalWrite, но не analog
   pinMode(LED_PIN, OUTPUT);
 
   Serial.begin(9600);
