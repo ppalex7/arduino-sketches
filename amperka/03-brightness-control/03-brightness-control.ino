@@ -1,5 +1,6 @@
 #define CONTROL_PIN A0
 #define LED_PIN 9
+#define LED2_PIN 5
 
 unsigned long lastDebugPrintTime;
 int lastLoggedRotation;
@@ -9,6 +10,7 @@ void setup() {
   pinMode(CONTROL_PIN, INPUT);
   // тоже необязательно, критично для digitalWrite, но не analog
   pinMode(LED_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
 
   Serial.begin(9600);
   while(!Serial) {
@@ -21,8 +23,10 @@ void loop() {
   rotation = analogRead(CONTROL_PIN);
 
   brightness = rotation / 4;
+  int brightness2 = brightness / 8;
 
   analogWrite(LED_PIN, brightness);
+  analogWrite(LED2_PIN, brightness2);
 
   unsigned long time = millis();
   if (time - lastDebugPrintTime > 10000
