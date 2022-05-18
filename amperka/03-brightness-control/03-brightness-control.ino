@@ -2,7 +2,7 @@
 #define LED_PIN 9
 
 unsigned long lastDebugPrintTime;
-int previousRotation;
+int lastLoggedRotation;
 
 void setup() {
   pinMode(CONTROL_PIN, INPUT);
@@ -24,13 +24,13 @@ void loop() {
 
   unsigned long time = millis();
   if (time - lastDebugPrintTime > 10000
-    || previousRotation != rotation
+    || abs(lastLoggedRotation - rotation) > 2
   ) {
     Serial.print(F("Current analog value is: "));
     Serial.print(rotation);
     Serial.print(F(", logged at "));
     Serial.println(time);
     lastDebugPrintTime = time;
+    lastLoggedRotation = rotation;
   }
-  previousRotation = rotation;
 }
