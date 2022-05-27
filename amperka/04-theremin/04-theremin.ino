@@ -39,7 +39,7 @@ void loop() {
 
   val = analogRead(LDR_PIN);
 
-  frequency = map(val, 0, 1023, 3500, 4500);
+  frequency = map(val, 0, 1023, 5500, 2500);
 
   tone(BUZZER_PIN, frequency, 20);
 }
