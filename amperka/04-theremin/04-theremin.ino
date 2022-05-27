@@ -41,5 +41,7 @@ void loop() {
 
   frequency = map(val, 0, 1023, 5500, 2500);
 
-  tone(BUZZER_PIN, frequency, 20);
+  long toneDuration = random(25, 75);
+  tone(BUZZER_PIN, frequency, toneDuration);
+  delay(100);
 }
