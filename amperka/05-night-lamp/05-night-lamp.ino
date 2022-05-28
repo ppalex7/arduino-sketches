@@ -10,7 +10,5 @@ void loop() {
   int lightness = analogRead(LDR_PIN);
   int threshold = analogRead(POT_PIN);
 
-  boolean tooDark = lightness < threshold;
-
-  digitalWrite(LED_PIN, tooDark ? HIGH : LOW);
+  digitalWrite(LED_PIN, lightness < threshold ? HIGH : LOW);
 }
