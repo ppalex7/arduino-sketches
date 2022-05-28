@@ -7,7 +7,7 @@ void setup(){
 int brightness = 0;
 
 void loop() {
-    brightness = ++brightness % 256;
+    brightness = (brightness + 3) % 256;
     analogWrite(CONTROL_PIN, brightness);
     delay(10);
 }
