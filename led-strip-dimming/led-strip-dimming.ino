@@ -6,8 +6,9 @@ void setup(){
 
     #if defined(__AVR_ATmega328P__)
         bitSet(TCCR1A, WGM10);
-        bitSet(TCCR1B, CS11);
+        // bitSet(TCCR1B, CS11);
         bitSet(TCCR1B, WGM12);
+        bitSet(TCCR1B, CS10);
     #endif
 }
 
