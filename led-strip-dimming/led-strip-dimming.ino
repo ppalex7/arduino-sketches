@@ -1,4 +1,5 @@
 #include <ButtonDebounce.h>
+#include <GyverPWM.h>
 
 #define CONTROL_PIN 9
 #define BTN_UP 11
@@ -12,16 +13,13 @@ void setup(){
     pinMode(CONTROL_PIN, OUTPUT);
     pinMode(LED_BUILTIN, OUTPUT);
 
-    #if defined(__AVR_ATmega328P__)
-        bitSet(TCCR1A, WGM10);
-        // bitSet(TCCR1B, CS11);
-        bitSet(TCCR1B, WGM12);
-        bitSet(TCCR1B, CS10);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(3000);
+    digitalWrite(LED_BUILTIN, LOW);
 
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(3000);
-        digitalWrite(LED_BUILTIN, LOW);
-    #endif
+    PWM_TMR1_8BIT();
+    PWM_mode(CONTROL_PIN, 0);
+    PWM_prescaler(CONTROL_PIN, 1);
 
     upButton.setCallback([](const int state) {
         if (state == 1 && brightness < 255) {
