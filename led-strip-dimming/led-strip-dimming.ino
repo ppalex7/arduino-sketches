@@ -3,6 +3,12 @@
 void setup(){
     pinMode(CONTROL_PIN, OUTPUT);
     pinMode(LED_BUILTIN, OUTPUT);
+
+    #if defined(__AVR_ATmega328P__)
+        bitSet(TCCR1A, WGM10);
+        bitSet(TCCR1B, CS11);
+        bitSet(TCCR1B, WGM12);
+    #endif
 }
 
 int brightness = 0;
