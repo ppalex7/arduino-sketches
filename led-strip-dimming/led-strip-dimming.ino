@@ -9,6 +9,10 @@ void setup(){
         // bitSet(TCCR1B, CS11);
         bitSet(TCCR1B, WGM12);
         bitSet(TCCR1B, CS10);
+
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(3000);
+        digitalWrite(LED_BUILTIN, LOW);
     #endif
 }
 
