@@ -1,4 +1,12 @@
+#include <ButtonDebounce.h>
+
 #define CONTROL_PIN 9
+#define BTN_UP 11
+#define BTN_DOWN 12
+
+ButtonDebounce upButton(BTN_UP, 30);
+ButtonDebounce downButton(BTN_DOWN, 30);
+int brightness = 0;
 
 void setup(){
     pinMode(CONTROL_PIN, OUTPUT);
@@ -14,15 +22,28 @@ void setup(){
         delay(3000);
         digitalWrite(LED_BUILTIN, LOW);
     #endif
+
+    upButton.setCallback([](const int state) {
+        if (state == 1 && brightness < 255) {
+            brightness++;
+        }
+        updateLed();
+    });
+
+    downButton.setCallback([](const int state) {
+        if (state == 1 && brightness > 0) {
+            brightness--;
+        }
+        updateLed();
+    });
 }
 
-int brightness = 0;
+void updateLed() {
+    digitalWrite(LED_BUILTIN, brightness == 255);
+}
 
 void loop() {
-    static boolean step;
-    step = !step;
-    brightness = ++brightness % 256;
+    upButton.update();
+    downButton.update();
     analogWrite(CONTROL_PIN, brightness);
-    digitalWrite(LED_BUILTIN, step);
-    delay(58);
 }
