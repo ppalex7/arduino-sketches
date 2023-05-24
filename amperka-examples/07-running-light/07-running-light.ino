@@ -8,10 +8,13 @@ void setup() {
 
 }
 
+int prevPin = LAST_LED_PIN;
 void loop() {
   unsigned long int ms = millis();
   int pin = FIRST_LED_PIN + (ms / 120) % 10;
-  digitalWrite(pin, HIGH);
-  delay(10);
-  digitalWrite(pin, LOW);
+  if (prevPin != pin) {
+    digitalWrite(prevPin, LOW);
+    digitalWrite(pin, HIGH);
+    prevPin = pin;
+  }
 }
