@@ -11,7 +11,7 @@ void setup() {
 int prevPin = LAST_LED_PIN;
 void loop() {
   unsigned long int ms = millis();
-  int pin = FIRST_LED_PIN + (ms / 120) % 10;
+  int pin = FIRST_LED_PIN + (ms / 1000) % 10;
   if (prevPin != pin) {
     digitalWrite(prevPin, LOW);
     digitalWrite(pin, HIGH);
