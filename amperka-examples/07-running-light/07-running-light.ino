@@ -9,7 +9,7 @@ void setup() {
 }
 
 void loop() {
-  for (int pin = FIRST_LED_PIN; pin <= LAST_LED_PIN; ++pin) {
+  for (int pin = LAST_LED_PIN; pin >= FIRST_LED_PIN; --pin) {
     digitalWrite(pin, HIGH);
     delay(14);
     digitalWrite(pin, LOW);
