@@ -1,27 +1,33 @@
-static const pin_size_t pins[] = {A0, A1, A2, A5, A6, PIN_LED};
-// static const pin_size_t pins[] = {0, 1, 2, 3, 4, 7};
-#define pins_cnt (sizeof(pins) / sizeof(pins[0]))
-#define INITAL_BITS 0b111111 << 6
+#include "MCP23017.h"
+#include "Wire.h"
 
-static short bits = INITAL_BITS;
+#define ADDR 0b0100111
+
+// relay connected from GPA1 to GPA6
+// using high byte from bits, starting from 1 in GPA0 position
+#define INITAL_BITS 0b111111000
+
+MCP23017 MCP(ADDR);
+
+static int bits = INITAL_BITS;
 
 void setup() {
-  for (byte i = 0; i < pins_cnt; i++) {
-    pin_size_t pin = pins[i];
-    pinMode(pin, OUTPUT);
-  }
+  Wire.begin();
+
+  MCP.begin();
+
+  MCP.pinMode8(0, 0x00);
 }
 
 void loop() {
-  for (byte i = 0; i < pins_cnt; i++) {
-    digitalWrite(pins[i], bitRead(bits, i));
-  }
+  MCP.write8(0, 0xFF & bits >> 8);
+
   delay(167);
-  bits = bits >> 1;
-  if (bits == (INITAL_BITS >> 7) || bits == (INITAL_BITS >> 1)) {
+  bits = bits << 1;
+  if (bits == (INITAL_BITS << 7) || bits == (INITAL_BITS << 13)) {
     delay(2000);
   }
-  if (bits == 0) {
+  if (bits == (INITAL_BITS << 13)) {
     bits = INITAL_BITS;
   }
 }
