@@ -1,7 +1,8 @@
-#define PIN_L3_W 2
-#define PIN_L3_R 3
-#define PIN_L3_G 4
-#define PIN_L3_B 5
+#define PIN_L3_W (2u)
+#define PIN_L3_R (3u)
+#define PIN_L3_G (4u)
+#define PIN_L3_B (5u)
+
 
 void setup() {
   // 31.5 Timer/Counter for Control Applications. Product dependencies:
