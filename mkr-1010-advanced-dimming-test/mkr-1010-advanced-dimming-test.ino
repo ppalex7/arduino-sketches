@@ -7,6 +7,8 @@
 void setup() {
   // 31.5 Timer/Counter for Control Applications. Product dependencies:
   // 31.5.1. In order to use I/O lines of this peripheral, the I/O pins must be configured using the I/O Pin Controller (PORT)
+  PORT->Group[ g_APinDescription[ PIN_L3_W ].ulPort ].PINCFG[ g_APinDescription[ PIN_L3_W ].ulPin ].bit.PMUXEN = 1;
+
   // 31.5.3 The TCC bus clocks (CLK_TCCx_APB) can be enabled and disabled in the Power Manager module.
   // The default state of CLK_TCCx_APB can be found in the Peripheral Clock Masking.
   // A generic clock (GCLK_TCCx) is required to clock the TCC.
