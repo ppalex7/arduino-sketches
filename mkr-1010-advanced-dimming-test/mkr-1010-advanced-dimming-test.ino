@@ -1,7 +1,7 @@
-#define PIN_L3_W (2u)
-#define PIN_L3_R (3u)
-#define PIN_L3_G (4u)
-#define PIN_L3_B (5u)
+#define PIN_L3_W (2u)       // PA10
+#define PIN_L3_R (3u)       // PA11
+#define PIN_L3_G (4u)       // PB10
+#define PIN_L3_B (5u)       // PB11
 
 
 void setup() {
