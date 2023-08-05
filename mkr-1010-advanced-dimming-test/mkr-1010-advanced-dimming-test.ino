@@ -3,6 +3,8 @@
 #define PIN_L3_G (4u)       // PB10
 #define PIN_L3_B (5u)       // PB11
 
+#define pinToPINFCG(P)      (PORT->Group[ g_APinDescription[P].ulPort ].PINCFG[ g_APinDescription[P].ulPin ])
+#define pinToPMUX(P)        (PORT->Group[ g_APinDescription[P].ulPort ].PMUX[ g_APinDescription[P].ulPin >> 1 ])
 
 void setup() {
   // 16.6.2.6 Peripheral Clock Default state (according to datasheet):
@@ -12,7 +14,18 @@ void setup() {
 
   // 31.5 Timer/Counter for Control Applications. Product dependencies:
   // 31.5.1. In order to use I/O lines of this peripheral, the I/O pins must be configured using the I/O Pin Controller (PORT)
-  PORT->Group[ g_APinDescription[ PIN_L3_W ].ulPort ].PINCFG[ g_APinDescription[ PIN_L3_W ].ulPin ].bit.PMUXEN = 1;
+  pinToPINFCG(PIN_L3_W).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L3_W).bit.PMUXE |= PORT_PMUX_PMUXE_F;
+
+  pinToPINFCG(PIN_L3_R).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L3_R).bit.PMUXO |= PORT_PMUX_PMUXO_F;
+
+  pinToPINFCG(PIN_L3_G).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L3_G).bit.PMUXE |= PORT_PMUX_PMUXE_F;
+
+  pinToPINFCG(PIN_L3_B).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L3_B).bit.PMUXO |= PORT_PMUX_PMUXO_F;
+
 
   // 31.5.3 The TCC bus clocks (CLK_TCCx_APB) can be enabled and disabled in the Power Manager module.
   // The default state of CLK_TCCx_APB can be found in the Peripheral Clock Masking.
