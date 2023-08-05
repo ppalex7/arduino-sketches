@@ -34,6 +34,24 @@ void setup() {
   // A generic clock (GCLK_TCCx) is required to clock the TCC.
   // This clock must be configured and enabled in the generic clock controller before using the TCC.
   // Note that TCC0 and TCC1 share a peripheral clock generator.
+  GCLK->GENDIV.reg = GCLK_GENDIV_ID(4) // generic clock generators from 0 to 3 already used in startup.c
+    | GCLK_GENDIV_DIV(128)
+  ;
+  while(GCLK->STATUS.bit.SYNCBUSY);
+
+  GCLK->CTRL.reg = GCLK_GENCTRL_ID(4)
+    | GCLK_GENCTRL_SRC_DFLL48M
+    | GCLK_GENCTRL_GENEN
+    | GCLK_GENCTRL_IDC
+  ;
+  while(GCLK->STATUS.bit.SYNCBUSY);
+  // in result: 384 kHz by divisor 128 from 48 MHz source
+
+  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID_TCC0_TCC1
+    | GCLK_CLKCTRL_GEN_GCLK4
+    | GCLK_CLKCTRL_CLKEN
+  ;
+  while(GCLK->STATUS.bit.SYNCBUSY);
   // The generic clocks (TCLK_TCCx) are asynchronus to the bus clock (CLK_TCCx_APB).
   // Due to this asynchronicity, writing certain registers will require synchronization between the clock domains.
 }
