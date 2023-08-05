@@ -27,6 +27,10 @@ void setup() {
   pinToPINFCG(PIN_L3_B).bit.PMUXEN = 1;
   pinToPMUX(PIN_L3_B).bit.PMUXO |= PORT_PMUX_PMUXO_F;
 
+  // временно, для дебага
+  // вывести конфигурируемый нами GCLK_4 на D6 (PA20)
+  pinToPINFCG(6u).bit.PMUXEN = 1;
+  pinToPMUX(6u).bit.PMUXE = PORT_PMUX_PMUXE_H;
 
   // 31.5.3 The TCC bus clocks (CLK_TCCx_APB) can be enabled and disabled in the Power Manager module.
   // The default state of CLK_TCCx_APB can be found in the Peripheral Clock Masking.
@@ -43,6 +47,8 @@ void setup() {
     | GCLK_GENCTRL_SRC_DFLL48M
     | GCLK_GENCTRL_GENEN
     | GCLK_GENCTRL_IDC
+    | GCLK_GENCTRL_OE // for debug
+    | GCLK_GENCTRL_RUNSTDBY // for debug
   ;
   while(GCLK->STATUS.bit.SYNCBUSY);
   // in result: 384 kHz by divisor 128 from 48 MHz source
