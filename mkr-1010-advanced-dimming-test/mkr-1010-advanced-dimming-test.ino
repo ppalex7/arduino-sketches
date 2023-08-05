@@ -14,6 +14,7 @@ void setup() {
 
   // 31.5 Timer/Counter for Control Applications. Product dependencies:
   // 31.5.1. In order to use I/O lines of this peripheral, the I/O pins must be configured using the I/O Pin Controller (PORT)
+    // 23.5.2 During Reset, all PORT lines are configured as inputs with input buffers, output buffers and pull disabled.
   pinToPINFCG(PIN_L3_W).bit.PMUXEN = 1;
   pinToPMUX(PIN_L3_W).bit.PMUXE |= PORT_PMUX_PMUXE_F;
 
