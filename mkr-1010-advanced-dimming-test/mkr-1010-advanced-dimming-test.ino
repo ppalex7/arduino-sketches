@@ -54,7 +54,7 @@ void setup() {
   // in result: 384 kHz by divisor 128 from 48 MHz source
 
   GCLK->CLKCTRL.reg = GCLK_CLKCTRL_ID_TCC0_TCC1
-    | GCLK_CLKCTRL_GEN_GCLK4
+    | GCLK_CLKCTRL_GEN(4)
     | GCLK_CLKCTRL_CLKEN
   ;
   while(GCLK->STATUS.bit.SYNCBUSY);
