@@ -60,6 +60,26 @@ void setup() {
   while(GCLK->STATUS.bit.SYNCBUSY);
   // The generic clocks (TCLK_TCCx) are asynchronus to the bus clock (CLK_TCCx_APB).
   // Due to this asynchronicity, writing certain registers will require synchronization between the clock domains.
+  TCC0->WAVE.bit.WAVEGEN = TCC_WAVE_WAVEGEN_NPWM_Val;
+  while(TCC0->SYNCBUSY.bit.WAVE);
+
+  TCC0->PER.bit.PER = (uint16_t) 32;
+  while(TCC0->SYNCBUSY.bit.PER);
+
+  TCC0->CC[0].bit.CC = (uint16_t) 6;
+  while(TCC0->SYNCBUSY.bit.CC0);
+
+  TCC0->CC[1].bit.CC = (uint16_t) 4;
+  while(TCC0->SYNCBUSY.bit.CC1);
+
+  TCC0->CC[2].bit.CC = (uint16_t) 12;
+  while(TCC0->SYNCBUSY.bit.CC2);
+
+  TCC0->CC[3].bit.CC = (uint16_t) 8;
+  while(TCC0->SYNCBUSY.bit.CC3);
+
+  TCC0->CTRLA.bit.ENABLE = 1;
+  while(TCC0->SYNCBUSY.bit.ENABLE);
 }
 
 void loop() {
