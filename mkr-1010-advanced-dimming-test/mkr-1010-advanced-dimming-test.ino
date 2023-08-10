@@ -39,7 +39,7 @@ void setup() {
   // This clock must be configured and enabled in the generic clock controller before using the TCC.
   // Note that TCC0 and TCC1 share a peripheral clock generator.
   GCLK->GENDIV.reg = GCLK_GENDIV_ID(4) // generic clock generators from 0 to 3 already used in startup.c
-    | GCLK_GENDIV_DIV(128)
+    | GCLK_GENDIV_DIV(4)
   ;
   while(GCLK->STATUS.bit.SYNCBUSY);
 
@@ -63,19 +63,23 @@ void setup() {
   TCC0->WAVE.bit.WAVEGEN = TCC_WAVE_WAVEGEN_NPWM_Val;
   while(TCC0->SYNCBUSY.bit.WAVE);
 
-  TCC0->PER.bit.PER = (uint16_t) 32;
+  TCC0->PER.bit.PER = (uint16_t) 1000;
   while(TCC0->SYNCBUSY.bit.PER);
 
-  TCC0->CC[0].bit.CC = (uint16_t) 6;
+  // GREEEN
+  TCC0->CC[0].bit.CC = 300;
   while(TCC0->SYNCBUSY.bit.CC0);
 
-  TCC0->CC[1].bit.CC = (uint16_t) 4;
+  // Blue
+  TCC0->CC[1].bit.CC = 400;
   while(TCC0->SYNCBUSY.bit.CC1);
 
-  TCC0->CC[2].bit.CC = (uint16_t) 12;
+  //white
+  TCC0->CC[2].bit.CC = 100;
   while(TCC0->SYNCBUSY.bit.CC2);
 
-  TCC0->CC[3].bit.CC = (uint16_t) 8;
+  //red
+  TCC0->CC[3].bit.CC = 200;
   while(TCC0->SYNCBUSY.bit.CC3);
 
   TCC0->CTRLA.bit.ENABLE = 1;
