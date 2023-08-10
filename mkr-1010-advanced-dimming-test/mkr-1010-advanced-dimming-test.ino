@@ -16,21 +16,21 @@ void setup() {
   // 31.5.1. In order to use I/O lines of this peripheral, the I/O pins must be configured using the I/O Pin Controller (PORT)
     // 23.5.2 During Reset, all PORT lines are configured as inputs with input buffers, output buffers and pull disabled.
   pinToPINFCG(PIN_L3_W).bit.PMUXEN = 1;
-  pinToPMUX(PIN_L3_W).bit.PMUXE |= PORT_PMUX_PMUXE_F;
+  pinToPMUX(PIN_L3_W).bit.PMUXE = PORT_PMUX_PMUXE_F_Val;
 
   pinToPINFCG(PIN_L3_R).bit.PMUXEN = 1;
-  pinToPMUX(PIN_L3_R).bit.PMUXO |= PORT_PMUX_PMUXO_F;
+  pinToPMUX(PIN_L3_R).bit.PMUXO = PORT_PMUX_PMUXO_F_Val;
 
   pinToPINFCG(PIN_L3_G).bit.PMUXEN = 1;
-  pinToPMUX(PIN_L3_G).bit.PMUXE |= PORT_PMUX_PMUXE_F;
+  pinToPMUX(PIN_L3_G).bit.PMUXE = PORT_PMUX_PMUXE_F_Val;
 
   pinToPINFCG(PIN_L3_B).bit.PMUXEN = 1;
-  pinToPMUX(PIN_L3_B).bit.PMUXO |= PORT_PMUX_PMUXO_F;
+  pinToPMUX(PIN_L3_B).bit.PMUXO = PORT_PMUX_PMUXO_F_Val;
 
   // временно, для дебага
   // вывести конфигурируемый нами GCLK_4 на D6 (PA20)
   pinToPINFCG(6u).bit.PMUXEN = 1;
-  pinToPMUX(6u).bit.PMUXE = PORT_PMUX_PMUXE_H;
+  pinToPMUX(6u).bit.PMUXE = PORT_PMUX_PMUXE_H_Val;
 
   // 31.5.3 The TCC bus clocks (CLK_TCCx_APB) can be enabled and disabled in the Power Manager module.
   // The default state of CLK_TCCx_APB can be found in the Peripheral Clock Masking.
