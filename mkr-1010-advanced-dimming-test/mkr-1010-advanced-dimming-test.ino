@@ -1,3 +1,5 @@
+#define PIN_L2_L (PIN_A5)   // PA06
+#define PIN_L2_R (PIN_A6)   // PA07
 #define PIN_L3_W (2u)       // PA10
 #define PIN_L3_R (3u)       // PA11
 #define PIN_L3_G (4u)       // PB10
@@ -26,6 +28,12 @@ void setup() {
 
   pinToPINFCG(PIN_L3_B).bit.PMUXEN = 1;
   pinToPMUX(PIN_L3_B).bit.PMUXO = PORT_PMUX_PMUXO_F_Val;
+
+  pinToPINFCG(PIN_L2_L).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L2_L).bit.PMUXE = PORT_PMUX_PMUXE_E_Val;
+
+  pinToPINFCG(PIN_L2_R).bit.PMUXEN = 1;
+  pinToPMUX(PIN_L2_R).bit.PMUXO = PORT_PMUX_PMUXO_E_Val;
 
   // временно, для дебага
   // вывести конфигурируемый нами GCLK_4 на D6 (PA20)
@@ -84,6 +92,21 @@ void setup() {
 
   TCC0->CTRLA.bit.ENABLE = 1;
   while(TCC0->SYNCBUSY.bit.ENABLE);
+
+  TCC1->WAVE.bit.WAVEGEN = TCC_WAVE_WAVEGEN_NPWM_Val;
+  while(TCC1->SYNCBUSY.bit.WAVE);
+
+  TCC1->PER.bit.PER = (uint16_t) 1000;
+  while(TCC1->SYNCBUSY.bit.PER);
+
+  TCC1->CC[0].bit.CC = 600;
+  while(TCC1->SYNCBUSY.bit.CC0);
+
+  TCC1->CC[1].bit.CC = 700;
+  while(TCC1->SYNCBUSY.bit.CC1);
+
+  TCC1->CTRLA.bit.ENABLE = 1;
+  while(TCC1->SYNCBUSY.bit.ENABLE);
 }
 
 void loop() {
