@@ -1,3 +1,4 @@
+// original from https://github.com/AlexGyver/Auto_Pump_Sleep/
 #define PERIOD 432000   // период работы в секундах (5 дней)
 
 #define WORK 15         // время работы в секундах
@@ -10,7 +11,6 @@ boolean state = false;
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
 #define adc_disable() (ADCSRA &= ~(1<<ADEN)) // disable ADC (before power-off)
-#define adc_enable()  (ADCSRA |=  (1<<ADEN)) // re-enable ADC
 
 void setup() {
   // все пины как входы, экономия энергии
