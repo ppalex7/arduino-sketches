@@ -307,59 +307,6 @@ void color_loop_vardelay() {                    //-m17-COLOR LOOP (SINGLE LED) w
   delay(t);
 }
 
-void white_temps() {                            //-m18-SHOW A SAMPLE OF BLACK BODY RADIATION COLOR TEMPERATURES
-  int N9 = int(LED_COUNT / 9);
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    if (i >= 0 && i < N9) {
-      leds[i].r = 255;  //-CANDLE - 1900
-      leds[i].g = 147;
-      leds[i].b = 41;
-    }
-    if (i >= N9 && i < N9 * 2) {
-      leds[i].r = 255;  //-40W TUNG - 2600
-      leds[i].g = 197;
-      leds[i].b = 143;
-    }
-    if (i >= N9 * 2 && i < N9 * 3) {
-      leds[i].r = 255;  //-100W TUNG - 2850
-      leds[i].g = 214;
-      leds[i].b = 170;
-    }
-    if (i >= N9 * 3 && i < N9 * 4) {
-      leds[i].r = 255;  //-HALOGEN - 3200
-      leds[i].g = 241;
-      leds[i].b = 224;
-    }
-    if (i >= N9 * 4 && i < N9 * 5) {
-      leds[i].r = 255;  //-CARBON ARC - 5200
-      leds[i].g = 250;
-      leds[i].b = 244;
-    }
-    if (i >= N9 * 5 && i < N9 * 6) {
-      leds[i].r = 255;  //-HIGH NOON SUN - 5400
-      leds[i].g = 255;
-      leds[i].b = 251;
-    }
-    if (i >= N9 * 6 && i < N9 * 7) {
-      leds[i].r = 255;  //-DIRECT SUN - 6000
-      leds[i].g = 255;
-      leds[i].b = 255;
-    }
-    if (i >= N9 * 7 && i < N9 * 8) {
-      leds[i].r = 201;  //-OVERCAST SKY - 7000
-      leds[i].g = 226;
-      leds[i].b = 255;
-    }
-    if (i >= N9 * 8 && i < LED_COUNT) {
-      leds[i].r = 64;  //-CLEAR BLUE SKY - 20000
-      leds[i].g = 156;
-      leds[i].b = 255;
-    }
-  }
-  LEDS.show();
-  delay(100);
-}
-
 void flame() {                                    //-m22-FLAMEISH EFFECT
   int idelay = random(0, 35);
   float hmin = 0.1; float hmax = 45.0;

@@ -139,7 +139,6 @@ void loop() {
     case 12: fade_vertical(); break;           // плавная смена яркости по вертикали (для кольца)
     case 14: random_march(thisdelay); break;            // безумие случайных цветов
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
-    case 18: white_temps(); break;             // бело синий градиент (?)
     case 22: flame(); break;                   // эффект пламени
     case 23: rainbow_vertical(); break;        // радуга в вертикаьной плоскости (кольцо)
     case 25: random_color_pop(); break;        // безумие случайных вспышек
