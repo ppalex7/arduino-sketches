@@ -84,7 +84,6 @@ void change_mode(int newmode) {
     case 5: thisdelay = 20; thishue = 0; break;         //---CYLON v1
     case 6: thisdelay = 40; thishue = 0; break;         //---CYLON v2
     case 7: thisdelay = 40; thishue = 0; break;         //---POLICE LIGHTS SINGLE
-    case 9: thishue = 160; thissat = 50; break;         //---STRIP FLICKER
     case 10: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR BRIGHTNESS
     case 11: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR SATURATION
     case 12: thisdelay = 60; thishue = 180; break;      //---VERTICAL SOMETHING
@@ -133,7 +132,6 @@ void loop() {
     case  6: color_bounceFADE(); break;        // бегающий паровозик светодиодов
     case  7: ems_lightsONE(); break;           // вращаются красный и синий
     case 13: rule30_orange(); break;           // безумие оранжевых светодиодовв
-    case  9: flicker(); break;                 // случайный стробоскоп
     case 10: pulse_one_color_all(); break;     // пульсация одним цветом
     case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов
     case 12: fade_vertical(); break;           // плавная смена яркости по вертикали (для кольца)
