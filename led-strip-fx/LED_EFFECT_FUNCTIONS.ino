@@ -133,26 +133,6 @@ void ems_lightsONE() {                    //-m7-EMERGENCY LIGHTS (TWO COLOR SING
   delay(thisdelay);
 }
 
-void pulse_one_color_all() {              //-m10-PULSE BRIGHTNESS ON ALL LEDS TO ONE COLOR
-  if (bouncedirection == 0) {
-    ibright++;
-    if (ibright >= 255) {
-      bouncedirection = 1;
-    }
-  }
-  if (bouncedirection == 1) {
-    ibright = ibright - 1;
-    if (ibright <= 1) {
-      bouncedirection = 0;
-    }
-  }
-  for (int idex = 0 ; idex < LED_COUNT; idex++ ) {
-    leds[idex] = CHSV(thishue, thissat, ibright);
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void pulse_one_color_all_rev() {           //-m11-PULSE SATURATION ON ALL LEDS TO ONE COLOR
   if (bouncedirection == 0) {
     isat++;
