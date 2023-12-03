@@ -137,12 +137,12 @@ void loop() {
     case 37: rainbowCycle(thisdelay); break;                                        // очень плавная вращающаяся радуга
     case 38: TwinkleRandom(20, thisdelay, 1); break;                                // случайные разноцветные включения (1 - танцуют все, 0 - случайный 1 диод)
     case 39: RunningLights(0xff, 0xff, 0x00, thisdelay); break;                     // бегущие огни
+    case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
     case 40: Sparkle(0xff, 0xff, 0xff, thisdelay); break;                           // случайные вспышки белого цвета
     case 54: Sparkle(0xff, 0x6b, 0x00, thisdelay); break;                           // случайные вспышки белого цвета
     case 55: Sparkle(0xff, 0x6b, 0x00, 5); break;                           // случайные вспышки белого цвета
     case 56: Sparkle(0xff, 0x6b, 0x00, 10); break;                           // случайные вспышки белого цвета
     case 41: SnowSparkle(0x10, 0x10, 0x10, thisdelay, random(100, 1000)); break;    // случайные вспышки белого цвета на белом фоне
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
-case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
   }
 }
