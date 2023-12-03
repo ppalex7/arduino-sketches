@@ -509,22 +509,6 @@ void rgb_propeller() {                           //-m27-RGB PROPELLER
   delay(thisdelay);
 }
 
-void kitt() {                                     //-m28-KNIGHT INDUSTIES 2000
-  int rand = random(0, TOP_INDEX);
-  for (int i = 0; i < rand; i++ ) {
-    leds[TOP_INDEX + i] = CHSV(thishue, thissat, 255);
-    leds[TOP_INDEX - i] = CHSV(thishue, thissat, 255);
-    LEDS.show();
-    delay(thisdelay / rand);
-  }
-  for (int i = rand; i > 0; i-- ) {
-    leds[TOP_INDEX + i] = CHSV(thishue, thissat, 0);
-    leds[TOP_INDEX - i] = CHSV(thishue, thissat, 0);
-    LEDS.show();
-    delay(thisdelay / rand);
-  }
-}
-
 void matrix() {                                   //-m29-ONE LINE MATRIX
   int rand = random(0, 100);
   if (rand > 90) {

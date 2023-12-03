@@ -97,7 +97,6 @@ void change_mode(int newmode) {
     case 25: thisdelay = 35; break;                     //---RANDOM COLOR POP
     case 26: thisdelay = 25; thishue = 0; break;        //---EMERGECNY STROBE
     case 27: thisdelay = 25; thishue = 0; break;        //---RGB PROPELLER
-    case 28: thisdelay = 100; thishue = 0; break;       //---KITT
     case 29: thisdelay = 50; thishue = 95; break;       //---MATRIX RAIN
     case 30: thisdelay = 5; break;                      //---NEW RAINBOW LOOP
     case 33: thisdelay = 50; break;                     // colorWipe
@@ -155,7 +154,6 @@ void loop() {
     case 25: random_color_pop(); break;        // безумие случайных вспышек
     case 26: ems_lightsSTROBE(); break;        // полицейская мигалка
     case 27: rgb_propeller(); break;           // RGB пропеллер
-    case 28: kitt(); break;                    // случайные вспышки красного в вертикаьной плоскости
     case 29: matrix(); break;                  // зелёненькие бегают по кругу случайно
     case 30: new_rainbow_loop(); break;        // крутая плавная вращающаяся радуга
     case 33: colorWipe(0x00, 0xff, 0x00, thisdelay);
