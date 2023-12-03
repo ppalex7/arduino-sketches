@@ -490,25 +490,6 @@ void ems_lightsSTROBE() {                  //-m26-EMERGENCY LIGHTS (STROBE LEFT/
   }
 }
 
-void rgb_propeller() {                           //-m27-RGB PROPELLER
-  idex++;
-  int ghue = (thishue + 80) % 255;
-  int bhue = (thishue + 160) % 255;
-  int N3  = int(LED_COUNT / 3);
-  int N6  = int(LED_COUNT / 6);
-  int N12 = int(LED_COUNT / 12);
-  for (int i = 0; i < N3; i++ ) {
-    int j0 = (idex + i + LED_COUNT - N12) % LED_COUNT;
-    int j1 = (j0 + N3) % LED_COUNT;
-    int j2 = (j1 + N3) % LED_COUNT;
-    leds[j0] = CHSV(thishue, thissat, 255);
-    leds[j1] = CHSV(ghue, thissat, 255);
-    leds[j2] = CHSV(bhue, thissat, 255);
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void matrix() {                                   //-m29-ONE LINE MATRIX
   int rand = random(0, 100);
   if (rand > 90) {
