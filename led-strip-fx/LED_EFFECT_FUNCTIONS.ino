@@ -469,27 +469,6 @@ void random_color_pop() {                         //-m25-RANDOM COLOR POP
   delay(thisdelay);
 }
 
-void ems_lightsSTROBE() {                  //-m26-EMERGENCY LIGHTS (STROBE LEFT/RIGHT)
-  int thishue = 0;
-  int thathue = (thishue + 160) % 255;
-  for (int x = 0 ; x < 5; x++ ) {
-    for (int i = 0 ; i < TOP_INDEX; i++ ) {
-      leds[i] = CHSV(thishue, thissat, 255);
-    }
-    LEDS.show(); delay(thisdelay);
-    one_color_all(0, 0, 0);
-    LEDS.show(); delay(thisdelay);
-  }
-  for (int x = 0 ; x < 5; x++ ) {
-    for (int i = TOP_INDEX ; i < LED_COUNT; i++ ) {
-      leds[i] = CHSV(thathue, thissat, 255);
-    }
-    LEDS.show(); delay(thisdelay);
-    one_color_all(0, 0, 0);
-    LEDS.show(); delay(thisdelay);
-  }
-}
-
 void matrix() {                                   //-m29-ONE LINE MATRIX
   int rand = random(0, 100);
   if (rand > 90) {
