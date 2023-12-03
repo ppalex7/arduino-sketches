@@ -28,7 +28,7 @@ int EVENODD = LED_COUNT % 2;
 struct CRGB leds[LED_COUNT];
 uint8_t ledsX[LED_COUNT][3]; //-ARRAY FOR COPYING WHATS IN THE LED STRIP CURRENTLY (FOR CELL-AUTOMATA, MARCH, ETC)
 
-int thisdelay = 20;          //-FX LOOPS DELAY VAR was 20
+int thisdelay = 20;          //-FX LOOPS DELAY VAR
 int thisstep = 10;           //-FX LOOPS DELAY VAR
 int thishue = 0;             //-FX LOOPS DELAY VAR
 int thissat = 255;           //-FX LOOPS DELAY VAR
@@ -91,6 +91,7 @@ void change_mode(int newmode) {
     case 37: thisdelay = 20; break;                     // rainbowCycle
     case 38: thisdelay = 10; break;                     // rainbowTwinkle
     case 39: thisdelay = 50; break;                     // RunningLights
+    case 54:
     case 40: thisdelay = 0; break;                      // Sparkle
     case 41: thisdelay = 20; break;                     // SnowSparkle
     case 43: thisdelay = 50; break;                     // theaterChaseRainbow
@@ -136,12 +137,12 @@ void loop() {
     case 38: TwinkleRandom(20, thisdelay, 1); break;                                // случайные разноцветные включения (1 - танцуют все, 0 - случайный 1 диод)
     case 39: RunningLights(0xff, 0xff, 0x00, thisdelay); break;                     // бегущие огни
     case 40: Sparkle(0xff, 0xff, 0xff, thisdelay); break;                           // случайные вспышки белого цвета
+    case 54: Sparkle(0xff, 0x6b, 0x00, thisdelay); break;                           // случайные вспышки белого цвета
+    case 55: Sparkle(0xff, 0x6b, 0x00, 5); break;                           // случайные вспышки белого цвета
+    case 56: Sparkle(0xff, 0x6b, 0x00, 10); break;                           // случайные вспышки белого цвета
     case 41: SnowSparkle(0x10, 0x10, 0x10, thisdelay, random(100, 1000)); break;    // случайные вспышки белого цвета на белом фоне
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
 case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
-case 54: Sparkle(0xff, 0x6b, 0x00, 0); break;                           // случайные вспышки белого цвета
-case 55: Sparkle(0xff, 0x6b, 0x00, 5); break;                           // случайные вспышки белого цвета
-case 56: Sparkle(0xff, 0x6b, 0x00, 10); break;                           // случайные вспышки белого цвета
   }
 }
