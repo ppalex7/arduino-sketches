@@ -203,21 +203,6 @@ void fade_vertical() {                    //-m12-FADE 'UP' THE LOOP
   delay(thisdelay);
 }
 
-void random_red() {                       //QUICK 'N DIRTY RANDOMIZE TO GET CELL AUTOMATA STARTED
-  int temprand;
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    temprand = random(0, 100);
-    if (temprand > 50) {
-      leds[i].r = 255;
-    }
-    if (temprand <= 50) {
-      leds[i].r = 0;
-    }
-    leds[i].b = 0; leds[i].g = 0;
-  }
-  LEDS.show();
-}
-
 #define or_g 107
 
 void random_orange() {                       //QUICK 'N DIRTY RANDOMIZE TO GET CELL AUTOMATA STARTED
@@ -239,47 +224,7 @@ void random_orange() {                       //QUICK 'N DIRTY RANDOMIZE TO GET C
 }
 
 
-void rule30() {                          //-m13-1D CELLULAR AUTOMATA - RULE 30 (RED FOR NOW)
-  if (bouncedirection == 0) {
-    random_red();
-    bouncedirection = 1;
-  }
-  copy_led_array();
-  int iCW;
-  int iCCW;
-  int y = 100;
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    iCW = adjacent_cw(i);
-    iCCW = adjacent_ccw(i);
-    if (ledsX[iCCW][0] > y && ledsX[i][0] > y && ledsX[iCW][0] > y) {
-      leds[i].r = 0;
-    }
-    if (ledsX[iCCW][0] > y && ledsX[i][0] > y && ledsX[iCW][0] <= y) {
-      leds[i].r = 0;
-    }
-    if (ledsX[iCCW][0] > y && ledsX[i][0] <= y && ledsX[iCW][0] > y) {
-      leds[i].r = 0;
-    }
-    if (ledsX[iCCW][0] > y && ledsX[i][0] <= y && ledsX[iCW][0] <= y) {
-      leds[i].r = 255;
-    }
-    if (ledsX[iCCW][0] <= y && ledsX[i][0] > y && ledsX[iCW][0] > y) {
-      leds[i].r = 255;
-    }
-    if (ledsX[iCCW][0] <= y && ledsX[i][0] > y && ledsX[iCW][0] <= y) {
-      leds[i].r = 255;
-    }
-    if (ledsX[iCCW][0] <= y && ledsX[i][0] <= y && ledsX[iCW][0] > y) {
-      leds[i].r = 255;
-    }
-    if (ledsX[iCCW][0] <= y && ledsX[i][0] <= y && ledsX[iCW][0] <= y) {
-      leds[i].r = 0;
-    }
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-void rule30_orange() {                          //-m13-1D CELLULAR AUTOMATA - RULE 30 (RED FOR NOW)
+void rule30_orange() {                          //-m13-1D CELLULAR AUTOMATA - RULE 30
   if (bouncedirection == 0) {
     random_orange();
     bouncedirection = 1;

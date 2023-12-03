@@ -142,11 +142,11 @@ void loop() {
     case  5: color_bounce(); break;            // бегающий светодиод
     case  6: color_bounceFADE(); break;        // бегающий паровозик светодиодов
     case  7: ems_lightsONE(); break;           // вращаются красный и синий
+    case 13: rule30_orange(); break;           // безумие оранжевых светодиодовв
     case  9: flicker(); break;                 // случайный стробоскоп
     case 10: pulse_one_color_all(); break;     // пульсация одним цветом
     case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов
     case 12: fade_vertical(); break;           // плавная смена яркости по вертикали (для кольца)
-    case 13: rule30(); break;                  // безумие красных светодиодов
     case 14: random_march(thisdelay); break;            // безумие случайных цветов
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
     case 18: white_temps(); break;             // бело синий градиент (?)
@@ -175,7 +175,6 @@ void loop() {
     
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
     case 44: Strobe(0xff, 0xff, 0xff, 10, thisdelay, 1000); break;                  // стробоскоп
-case 50: rule30_orange(); break;
 case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
 case 54: Sparkle(0xff, 0x6b, 0x00, 0); break;                           // случайные вспышки белого цвета
