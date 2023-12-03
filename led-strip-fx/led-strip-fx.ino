@@ -179,8 +179,6 @@ void loop() {
     
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
     case 44: Strobe(0xff, 0xff, 0xff, 10, thisdelay, 1000); break;                  // стробоскоп
-
-    case 45: BouncingBalls(0xff, 0, 0, 3); break;                                   // прыгающие мячики
 case 50: rule30_orange(); break;
 case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
