@@ -92,22 +92,18 @@ void change_mode(int newmode) {
     case 5: thisdelay = 20; thishue = 0; break;         //---CYLON v1
     case 6: thisdelay = 40; thishue = 0; break;         //---CYLON v2
     case 7: thisdelay = 40; thishue = 0; break;         //---POLICE LIGHTS SINGLE
-    case 8: thisdelay = 40; thishue = 0; break;         //---POLICE LIGHTS SOLID
     case 9: thishue = 160; thissat = 50; break;         //---STRIP FLICKER
     case 10: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR BRIGHTNESS
     case 11: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR SATURATION
     case 12: thisdelay = 60; thishue = 180; break;      //---VERTICAL SOMETHING
     case 13: thisdelay = 100; break;                    //---CELL AUTO - RULE 30 (RED)
     case 14: thisdelay = 40; break;                     //---MARCH RANDOM COLORS
-    case 15: thisdelay = 80; break;                     //---MARCH RWB COLORS
-    case 16: thisdelay = 60; thishue = 95; break;       //---RADIATION SYMBOL
     //---PLACEHOLDER FOR COLOR LOOP VAR DELAY VARS
     case 19: thisdelay = 35; thishue = 180; break;      //---SIN WAVE BRIGHTNESS
     case 20: thisdelay = 100; thishue = 0; break;       //---POP LEFT/RIGHT
     case 21: thisdelay = 100; thishue = 180; break;     //---QUADRATIC BRIGHTNESS CURVE
     //---PLACEHOLDER FOR FLAME VARS
     case 23: thisdelay = 50; thisstep = 15; break;      //---VERITCAL RAINBOW
-    case 24: thisdelay = 50; break;                     //---PACMAN
     case 25: thisdelay = 35; break;                     //---RANDOM COLOR POP
     case 26: thisdelay = 25; thishue = 0; break;        //---EMERGECNY STROBE
     case 27: thisdelay = 25; thishue = 0; break;        //---RGB PROPELLER
@@ -157,15 +153,12 @@ void loop() {
     case  5: color_bounce(); break;            // бегающий светодиод
     case  6: color_bounceFADE(); break;        // бегающий паровозик светодиодов
     case  7: ems_lightsONE(); break;           // вращаются красный и синий
-    case  8: ems_lightsALL(); break;           // вращается половина красных и половина синих
     case  9: flicker(); break;                 // случайный стробоскоп
     case 10: pulse_one_color_all(); break;     // пульсация одним цветом
     case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов
     case 12: fade_vertical(); break;           // плавная смена яркости по вертикали (для кольца)
     case 13: rule30(); break;                  // безумие красных светодиодов
     case 14: random_march(thisdelay); break;            // безумие случайных цветов
-    case 15: rwb_march(); break;               // белый синий красный бегут по кругу (ПАТРИОТИЗМ!)
-    case 16: radiation(); break;               // пульсирует значок радиации
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
     case 18: white_temps(); break;             // бело синий градиент (?)
     case 19: sin_bright_wave(); break;         // тоже хрень какая то
@@ -173,7 +166,6 @@ void loop() {
     case 21: quad_bright_curve(); break;       // полумесяц
     case 22: flame(); break;                   // эффект пламени
     case 23: rainbow_vertical(); break;        // радуга в вертикаьной плоскости (кольцо)
-    case 24: pacman(); break;                  // пакман
     case 25: random_color_pop(); break;        // безумие случайных вспышек
     case 26: ems_lightsSTROBE(); break;        // полицейская мигалка
     case 27: rgb_propeller(); break;           // RGB пропеллер
@@ -207,7 +199,5 @@ case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     
 case 54: Sparkle(0xff, 0x6b, 0x00, 0); break;                           // случайные вспышки белого цвета
 case 55: Sparkle(0xff, 0x6b, 0x00, 5); break;                           // случайные вспышки белого цвета
 case 56: Sparkle(0xff, 0x6b, 0x00, 10); break;                           // случайные вспышки белого цвета
-    case 888: demo_modeA(); break;             // длинное демо
-    case 889: demo_modeB(); break;             // короткое демо
   }
 }
