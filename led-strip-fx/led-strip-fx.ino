@@ -82,7 +82,6 @@ void change_mode(int newmode) {
     case 3: thisdelay = 20; thisstep = 10; break;       //---RAINBOW LOOP
     case 4: thisdelay = 20; break;                      //---RANDOM BURST
     case 5: thisdelay = 20; thishue = 0; break;         //---CYLON v1
-    case 6: thisdelay = 40; thishue = 0; break;         //---CYLON v2
     case 7: thisdelay = 40; thishue = 0; break;         //---POLICE LIGHTS SINGLE
     case 11: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR SATURATION
     case 13: thisdelay = 100; break;                    //---CELL AUTO - RULE 30 (RED)
@@ -127,7 +126,6 @@ void loop() {
     case  3: rainbow_loop(); break;            // крутящаяся радуга
     case  4: random_burst(); break;            // случайная смена цветов
     case  5: color_bounce(); break;            // бегающий светодиод
-    case  6: color_bounceFADE(); break;        // бегающий паровозик светодиодов
     case  7: ems_lightsONE(); break;           // вращаются красный и синий
     case 13: rule30_orange(); break;           // безумие оранжевых светодиодовв
     case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов

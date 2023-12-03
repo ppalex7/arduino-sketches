@@ -60,56 +60,6 @@ void color_bounce() {                        //-m5-BOUNCE COLOR (SINGLE LED)
   delay(thisdelay);
 }
 
-void color_bounceFADE() {                    //-m6-BOUNCE COLOR (SIMPLE MULTI-LED FADE)
-  if (bouncedirection == 0) {
-    idex = idex + 1;
-    if (idex == LED_COUNT) {
-      bouncedirection = 1;
-      idex = idex - 1;
-    }
-  }
-  if (bouncedirection == 1) {
-    idex = idex - 1;
-    if (idex == 0) {
-      bouncedirection = 0;
-    }
-  }
-  int iL1 = adjacent_cw(idex);
-  int iL2 = adjacent_cw(iL1);
-  int iL3 = adjacent_cw(iL2);
-  int iR1 = adjacent_ccw(idex);
-  int iR2 = adjacent_ccw(iR1);
-  int iR3 = adjacent_ccw(iR2);
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    if (i == idex) {
-      leds[i] = CHSV(thishue, thissat, 255);
-    }
-    else if (i == iL1) {
-      leds[i] = CHSV(thishue, thissat, 150);
-    }
-    else if (i == iL2) {
-      leds[i] = CHSV(thishue, thissat, 80);
-    }
-    else if (i == iL3) {
-      leds[i] = CHSV(thishue, thissat, 20);
-    }
-    else if (i == iR1) {
-      leds[i] = CHSV(thishue, thissat, 150);
-    }
-    else if (i == iR2) {
-      leds[i] = CHSV(thishue, thissat, 80);
-    }
-    else if (i == iR3) {
-      leds[i] = CHSV(thishue, thissat, 20);
-    }
-    else {
-      leds[i] = CHSV(0, 0, 0);
-    }
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void ems_lightsONE() {                    //-m7-EMERGENCY LIGHTS (TWO COLOR SINGLE LED)
   idex++;
   if (idex >= LED_COUNT) {
