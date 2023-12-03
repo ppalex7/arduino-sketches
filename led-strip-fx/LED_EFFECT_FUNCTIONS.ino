@@ -611,32 +611,6 @@ void matrix() {                                   //-m29-ONE LINE MATRIX
   delay(thisdelay);
 }
 
-void strip_march_cw() {                        //-m50-MARCH STRIP CW
-  copy_led_array();
-  int iCW;
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    iCW = adjacent_cw(i);
-    leds[i].r = ledsX[iCW][0];
-    leds[i].g = ledsX[iCW][1];
-    leds[i].b = ledsX[iCW][2];
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
-void strip_march_ccw() {                        //-m51-MARCH STRIP CCW
-  copy_led_array();
-  int iCCW;
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    iCCW = adjacent_ccw(i);
-    leds[i].r = ledsX[iCCW][0];
-    leds[i].g = ledsX[iCCW][1];
-    leds[i].b = ledsX[iCCW][2];
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void new_rainbow_loop() {                      //-m88-RAINBOW FADE FROM FAST_SPI2
   ihue -= 1;
   fill_rainbow( leds, LED_COUNT, ihue );

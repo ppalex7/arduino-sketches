@@ -101,8 +101,6 @@ void change_mode(int newmode) {
     case 28: thisdelay = 100; thishue = 0; break;       //---KITT
     case 29: thisdelay = 50; thishue = 95; break;       //---MATRIX RAIN
     case 30: thisdelay = 5; break;                      //---NEW RAINBOW LOOP
-    case 31: thisdelay = 100; break;                    //---MARCH STRIP NOW CCW
-    case 32: thisdelay = 100; break;                    //---MARCH STRIP NOW CCW
     case 33: thisdelay = 50; break;                     // colorWipe
     case 34: thisdelay = 50; break;                     // CylonBounce
     case 35: thisdelay = 15; break;                     // Fire
@@ -162,8 +160,6 @@ void loop() {
     case 28: kitt(); break;                    // случайные вспышки красного в вертикаьной плоскости
     case 29: matrix(); break;                  // зелёненькие бегают по кругу случайно
     case 30: new_rainbow_loop(); break;        // крутая плавная вращающаяся радуга
-    case 31: strip_march_ccw(); break;         // чёт сломалось
-    case 32: strip_march_cw(); break;          // чёт сломалось
     case 33: colorWipe(0x00, 0xff, 0x00, thisdelay);
       colorWipe(0x00, 0x00, 0x00, thisdelay); break;                                // плавное заполнение цветом
     case 34: CylonBounce(0xff, 0, 0, 4, 10, thisdelay); break;                      // бегающие светодиоды
