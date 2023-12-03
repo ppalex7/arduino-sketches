@@ -123,9 +123,10 @@ void loop() {
     case  4: random_burst(); break;            // случайная смена цветов
     case  5: color_bounce(); break;            // бегающий светодиод
     case  7: ems_lightsONE(); break;           // вращаются красный и синий
+    case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цвето
     case 13: rule30_orange(); break;           // безумие оранжевых светодиодовв
-    case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов
-    case 14: random_march(thisdelay); break;            // безумие случайных цветов
+    case 14: random_march(thisdelay); break;   // безумие случайных цветов
+    case 51: random_march(90); break;          // безумие случайных цветов
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
     case 22: flame(); break;                   // эффект пламени
     case 23: rainbow_vertical(); break;        // радуга в вертикаьной плоскости (кольцо)
@@ -142,7 +143,6 @@ void loop() {
     case 56: Sparkle(0xff, 0x6b, 0x00, 10); break;                           // случайные вспышки белого цвета
     case 41: SnowSparkle(0x10, 0x10, 0x10, thisdelay, random(100, 1000)); break;    // случайные вспышки белого цвета на белом фоне
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
-case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
   }
 }
