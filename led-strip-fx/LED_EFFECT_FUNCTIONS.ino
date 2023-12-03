@@ -360,19 +360,6 @@ void white_temps() {                            //-m18-SHOW A SAMPLE OF BLACK BO
   delay(100);
 }
 
-void sin_bright_wave() {        //-m19-BRIGHTNESS SINE WAVE
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    tcount = tcount + .1;
-    if (tcount > 3.14) {
-      tcount = 0.0;
-    }
-    ibright = int(sin(tcount) * 255);
-    leds[i] = CHSV(thishue, thissat, ibright);
-    LEDS.show();
-    delay(5);
-  }
-}
-
 void pop_horizontal() {        //-m20-POP FROM LEFT TO RIGHT UP THE RING
   int ix;
   if (bouncedirection == 0) {
