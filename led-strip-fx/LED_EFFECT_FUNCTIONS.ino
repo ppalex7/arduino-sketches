@@ -534,16 +534,6 @@ void new_rainbow_loop() {                      //-m88-RAINBOW FADE FROM FAST_SPI
   delay(thisdelay);
 }
 
-
-//-----------------------------плавное заполнение цветом-----------------------------------------
-void colorWipe(byte red, byte green, byte blue, int SpeedDelay) {
-  for (uint16_t i = 0; i < LED_COUNT; i++) {
-    setPixel(i, red, green, blue);
-    FastLED.show();
-    delay(SpeedDelay);
-  }
-}
-
 //---------------------------------линейный огонь-------------------------------------
 void Fire(int Cooling, int Sparking, int SpeedDelay) {
   static byte heat[LED_COUNT];

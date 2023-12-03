@@ -99,7 +99,6 @@ void change_mode(int newmode) {
     case 27: thisdelay = 25; thishue = 0; break;        //---RGB PROPELLER
     case 29: thisdelay = 50; thishue = 95; break;       //---MATRIX RAIN
     case 30: thisdelay = 5; break;                      //---NEW RAINBOW LOOP
-    case 33: thisdelay = 50; break;                     // colorWipe
     case 35: thisdelay = 15; break;                     // Fire
     case 37: thisdelay = 20; break;                     // rainbowCycle
     case 38: thisdelay = 10; break;                     // rainbowTwinkle
@@ -152,8 +151,6 @@ void loop() {
     case 27: rgb_propeller(); break;           // RGB пропеллер
     case 29: matrix(); break;                  // зелёненькие бегают по кругу случайно
     case 30: new_rainbow_loop(); break;        // крутая плавная вращающаяся радуга
-    case 33: colorWipe(0x00, 0xff, 0x00, thisdelay);
-      colorWipe(0x00, 0x00, 0x00, thisdelay); break;                                // плавное заполнение цветом
     case 35: Fire(55, 120, thisdelay); break;                                       // линейный огонь
     case 37: rainbowCycle(thisdelay); break;                                        // очень плавная вращающаяся радуга
     case 38: TwinkleRandom(20, thisdelay, 1); break;                                // случайные разноцветные включения (1 - танцуют все, 0 - случайный 1 диод)
