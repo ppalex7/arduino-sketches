@@ -35,17 +35,17 @@ void random_burst() {                         //-m4-RANDOM INDEX/COLOR
 }
 
 void color_bounce() {                        //-m5-BOUNCE COLOR (SINGLE LED)
-  if (bouncedirection == 0) {
+  if (!bouncedirection) {
     idex = idex + 1;
     if (idex == LED_COUNT) {
-      bouncedirection = 1;
+      bouncedirection = true;
       idex = idex - 1;
     }
   }
-  if (bouncedirection == 1) {
+  if (bouncedirection) {
     idex = idex - 1;
     if (idex == 0) {
-      bouncedirection = 0;
+      bouncedirection = false;
     }
   }
   for (int i = 0; i < LED_COUNT; i++ ) {
@@ -84,16 +84,16 @@ void ems_lightsONE() {                    //-m7-EMERGENCY LIGHTS (TWO COLOR SING
 }
 
 void pulse_one_color_all_rev() {           //-m11-PULSE SATURATION ON ALL LEDS TO ONE COLOR
-  if (bouncedirection == 0) {
+  if (!bouncedirection) {
     isat++;
     if (isat >= 255) {
-      bouncedirection = 1;
+      bouncedirection = true;
     }
   }
-  if (bouncedirection == 1) {
+  if (bouncedirection) {
     isat = isat - 1;
     if (isat <= 1) {
-      bouncedirection = 0;
+      bouncedirection = false;
     }
   }
   for (int idex = 0 ; idex < LED_COUNT; idex++ ) {
@@ -125,9 +125,9 @@ void random_orange() {                       //QUICK 'N DIRTY RANDOMIZE TO GET C
 
 
 void rule30_orange() {                          //-m13-1D CELLULAR AUTOMATA - RULE 30
-  if (bouncedirection == 0) {
+  if (!bouncedirection) {
     random_orange();
-    bouncedirection = 1;
+    bouncedirection = true;
   }
   copy_led_array();
   int iCW;

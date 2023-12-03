@@ -39,7 +39,7 @@ int idex = 0;                //-LED INDEX (0 to LED_COUNT-1
 int ihue = 0;                //-HUE (0-255)
 int ibright = 0;             //-BRIGHTNESS (0-255)
 int isat = 0;                //-SATURATION (0-255)
-int bouncedirection = 0;     //-SWITCH FOR COLOR BOUNCE (0-1)
+bool bouncedirection = false;//-SWITCH FOR COLOR BOUNCE (0-1)
 // ---------------СЛУЖЕБНЫЕ ПЕРЕМЕННЫЕ-----------------
 
 void one_color_all(int cred, int cgrn, int cblu) {       //-SET ALL LEDS TO ONE COLOR
