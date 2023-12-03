@@ -26,7 +26,7 @@ int BOTTOM_INDEX = 0;        // светодиод начала отсчёта
 int TOP_INDEX = int(LED_COUNT / 2);
 int EVENODD = LED_COUNT % 2;
 struct CRGB leds[LED_COUNT];
-int ledsX[LED_COUNT][3];     //-ARRAY FOR COPYING WHATS IN THE LED STRIP CURRENTLY (FOR CELL-AUTOMATA, MARCH, ETC)
+uint8_t ledsX[LED_COUNT][3]; //-ARRAY FOR COPYING WHATS IN THE LED STRIP CURRENTLY (FOR CELL-AUTOMATA, MARCH, ETC)
 
 int thisdelay = 20;          //-FX LOOPS DELAY VAR was 20
 int thisstep = 10;           //-FX LOOPS DELAY VAR
