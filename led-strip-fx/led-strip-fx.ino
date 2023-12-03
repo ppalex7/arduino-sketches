@@ -108,7 +108,6 @@ void change_mode(int newmode) {
     case 40: thisdelay = 0; break;                      // Sparkle
     case 41: thisdelay = 20; break;                     // SnowSparkle
     case 43: thisdelay = 50; break;                     // theaterChaseRainbow
-    case 44: thisdelay = 100; break;                    // Strobe
 
     case 101: one_color_all(255, 0, 0); LEDS.show(); break; //---ALL RED
     case 102: one_color_all(0, 255, 0); LEDS.show(); break; //---ALL GREEN
@@ -163,9 +162,7 @@ void loop() {
     case 39: RunningLights(0xff, 0xff, 0x00, thisdelay); break;                     // бегущие огни
     case 40: Sparkle(0xff, 0xff, 0xff, thisdelay); break;                           // случайные вспышки белого цвета
     case 41: SnowSparkle(0x10, 0x10, 0x10, thisdelay, random(100, 1000)); break;    // случайные вспышки белого цвета на белом фоне
-    
     case 43: theaterChaseRainbow(80); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
-    case 44: Strobe(0xff, 0xff, 0xff, 10, thisdelay, 1000); break;                  // стробоскоп
 case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
 case 54: Sparkle(0xff, 0x6b, 0x00, 0); break;                           // случайные вспышки белого цвета

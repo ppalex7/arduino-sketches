@@ -743,17 +743,3 @@ void theaterChaseRainbow(int SpeedDelay) {
     }
   }
 }
-
-//-------------------------------Strobe---------------------------------------
-void Strobe(byte red, byte green, byte blue, int StrobeCount, int FlashDelay, int EndPause) {
-  for (int j = 0; j < StrobeCount; j++) {
-    setAll(red, green, blue);
-    FastLED.show();
-    delay(FlashDelay);
-    setAll(0, 0, 0);
-    FastLED.show();
-    delay(FlashDelay);
-  }
-
-  delay(EndPause);
-}
