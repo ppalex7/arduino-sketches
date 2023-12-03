@@ -102,7 +102,6 @@ void change_mode(int newmode) {
     case 33: thisdelay = 50; break;                     // colorWipe
     case 34: thisdelay = 50; break;                     // CylonBounce
     case 35: thisdelay = 15; break;                     // Fire
-    case 36: thisdelay = 50; break;                     // NewKITT
     case 37: thisdelay = 20; break;                     // rainbowCycle
     case 38: thisdelay = 10; break;                     // rainbowTwinkle
     case 39: thisdelay = 50; break;                     // RunningLights
@@ -159,7 +158,6 @@ void loop() {
       colorWipe(0x00, 0x00, 0x00, thisdelay); break;                                // плавное заполнение цветом
     case 34: CylonBounce(0xff, 0, 0, 4, 10, thisdelay); break;                      // бегающие светодиоды
     case 35: Fire(55, 120, thisdelay); break;                                       // линейный огонь
-    case 36: NewKITT(0xff, 0, 0, 8, 10, thisdelay); break;                          // беготня секторов круга (не работает)
     case 37: rainbowCycle(thisdelay); break;                                        // очень плавная вращающаяся радуга
     case 38: TwinkleRandom(20, thisdelay, 1); break;                                // случайные разноцветные включения (1 - танцуют все, 0 - случайный 1 диод)
     case 39: RunningLights(0xff, 0xff, 0x00, thisdelay); break;                     // бегущие огни
