@@ -19,15 +19,7 @@ int ledMode = 3;
   0 - все выключены
   1 - все включены
   3 - кольцевая радуга
-  888 - демо-режим
 */
-
-// цвета мячиков для режима
-byte ballColors[3][3] = {
-  {0xff, 0, 0},
-  {0xff, 0xff, 0xff},
-  {0   , 0   , 0xff},
-};
 
 // ---------------СЛУЖЕБНЫЕ ПЕРЕМЕННЫЕ-----------------
 int BOTTOM_INDEX = 0;        // светодиод начала отсчёта
@@ -189,7 +181,6 @@ void loop() {
     case 44: Strobe(0xff, 0xff, 0xff, 10, thisdelay, 1000); break;                  // стробоскоп
 
     case 45: BouncingBalls(0xff, 0, 0, 3); break;                                   // прыгающие мячики
-    case 46: BouncingColoredBalls(3, ballColors); break;                            // прыгающие мячики цветные
 case 50: rule30_orange(); break;
 case 51: random_march(90); break;            // безумие случайных цветов
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
