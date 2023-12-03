@@ -91,7 +91,6 @@ void change_mode(int newmode) {
     case 13: thisdelay = 100; break;                    //---CELL AUTO - RULE 30 (RED)
     case 14: thisdelay = 40; break;                     //---MARCH RANDOM COLORS
     //---PLACEHOLDER FOR COLOR LOOP VAR DELAY VARS
-    case 20: thisdelay = 100; thishue = 0; break;       //---POP LEFT/RIGHT
     //---PLACEHOLDER FOR FLAME VARS
     case 23: thisdelay = 50; thisstep = 15; break;      //---VERITCAL RAINBOW
     case 25: thisdelay = 35; break;                     //---RANDOM COLOR POP
@@ -141,7 +140,6 @@ void loop() {
     case 14: random_march(thisdelay); break;            // безумие случайных цветов
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
     case 18: white_temps(); break;             // бело синий градиент (?)
-    case 20: pop_horizontal(); break;          // красные вспышки спускаются вниз
     case 22: flame(); break;                   // эффект пламени
     case 23: rainbow_vertical(); break;        // радуга в вертикаьной плоскости (кольцо)
     case 25: random_color_pop(); break;        // безумие случайных вспышек

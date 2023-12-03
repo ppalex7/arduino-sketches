@@ -360,32 +360,6 @@ void white_temps() {                            //-m18-SHOW A SAMPLE OF BLACK BO
   delay(100);
 }
 
-void pop_horizontal() {        //-m20-POP FROM LEFT TO RIGHT UP THE RING
-  int ix;
-  if (bouncedirection == 0) {
-    bouncedirection = 1;
-    ix = idex;
-  }
-  else if (bouncedirection == 1) {
-    bouncedirection = 0;
-    ix = horizontal_index(idex);
-    idex++;
-    if (idex > TOP_INDEX) {
-      idex = 0;
-    }
-  }
-  for (int i = 0; i < LED_COUNT; i++ ) {
-    if (i == ix) {
-      leds[i] = CHSV(thishue, thissat, 255);
-    }
-    else {
-      leds[i].r = 0; leds[i].g = 0; leds[i].b = 0;
-    }
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void flame() {                                    //-m22-FLAMEISH EFFECT
   int idelay = random(0, 35);
   float hmin = 0.1; float hmax = 45.0;
