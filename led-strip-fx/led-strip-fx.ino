@@ -86,7 +86,6 @@ void change_mode(int newmode) {
     case 7: thisdelay = 40; thishue = 0; break;         //---POLICE LIGHTS SINGLE
     case 10: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR BRIGHTNESS
     case 11: thisdelay = 15; thishue = 0; break;        //---PULSE COLOR SATURATION
-    case 12: thisdelay = 60; thishue = 180; break;      //---VERTICAL SOMETHING
     case 13: thisdelay = 100; break;                    //---CELL AUTO - RULE 30 (RED)
     case 14: thisdelay = 40; break;                     //---MARCH RANDOM COLORS
     //---PLACEHOLDER FOR COLOR LOOP VAR DELAY VARS
@@ -134,7 +133,6 @@ void loop() {
     case 13: rule30_orange(); break;           // безумие оранжевых светодиодовв
     case 10: pulse_one_color_all(); break;     // пульсация одним цветом
     case 11: pulse_one_color_all_rev(); break; // пульсация со сменой цветов
-    case 12: fade_vertical(); break;           // плавная смена яркости по вертикали (для кольца)
     case 14: random_march(thisdelay); break;            // безумие случайных цветов
     case 17: color_loop_vardelay(); break;     // красный светодиод бегает по кругу
     case 22: flame(); break;                   // эффект пламени

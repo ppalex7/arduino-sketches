@@ -173,23 +173,6 @@ void pulse_one_color_all_rev() {           //-m11-PULSE SATURATION ON ALL LEDS T
   delay(thisdelay);
 }
 
-void fade_vertical() {                    //-m12-FADE 'UP' THE LOOP
-  idex++;
-  if (idex > TOP_INDEX) {
-    idex = 0;
-  }
-  int idexA = idex;
-  int idexB = horizontal_index(idexA);
-  ibright = ibright + 10;
-  if (ibright > 255) {
-    ibright = 0;
-  }
-  leds[idexA] = CHSV(thishue, thissat, ibright);
-  leds[idexB] = CHSV(thishue, thissat, ibright);
-  LEDS.show();
-  delay(thisdelay);
-}
-
 #define or_g 107
 
 void random_orange() {                       //QUICK 'N DIRTY RANDOMIZE TO GET CELL AUTOMATA STARTED
