@@ -242,45 +242,6 @@ void rainbow_vertical() {                        //-m23-RAINBOW 'UP' THE LOOP
   delay(thisdelay);
 }
 
-void pacman() {                                  //-m24-REALLY TERRIBLE PACMAN CHOMPING EFFECT
-  int s = int(LED_COUNT / 4);
-  lcount++;
-  if (lcount > 5) {
-    lcount = 0;
-  }
-  if (lcount == 0) {
-    for (int i = 0 ; i < LED_COUNT; i++ ) {
-      set_color_led(i, 255, 255, 0);
-    }
-  }
-  if (lcount == 1 || lcount == 5) {
-    for (int i = 0 ; i < LED_COUNT; i++ ) {
-      set_color_led(i, 255, 255, 0);
-    }
-    leds[s].r = 0; leds[s].g = 0; leds[s].b = 0;
-  }
-  if (lcount == 2 || lcount == 4) {
-    for (int i = 0 ; i < LED_COUNT; i++ ) {
-      set_color_led(i, 255, 255, 0);
-    }
-    leds[s - 1].r = 0; leds[s - 1].g = 0; leds[s - 1].b = 0;
-    leds[s].r = 0; leds[s].g = 0; leds[s].b = 0;
-    leds[s + 1].r = 0; leds[s + 1].g = 0; leds[s + 1].b = 0;
-  }
-  if (lcount == 3) {
-    for (int i = 0 ; i < LED_COUNT; i++ ) {
-      set_color_led(i, 255, 255, 0);
-    }
-    leds[s - 2].r = 0; leds[s - 2].g = 0; leds[s - 2].b = 0;
-    leds[s - 1].r = 0; leds[s - 1].g = 0; leds[s - 1].b = 0;
-    leds[s].r = 0; leds[s].g = 0; leds[s].b = 0;
-    leds[s + 1].r = 0; leds[s + 1].g = 0; leds[s + 1].b = 0;
-    leds[s + 2].r = 0; leds[s + 2].g = 0; leds[s + 2].b = 0;
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void random_color_pop() {                         //-m25-RANDOM COLOR POP
   idex = random(0, LED_COUNT);
   ihue = random(0, 255);
