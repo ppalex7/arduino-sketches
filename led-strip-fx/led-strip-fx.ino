@@ -34,17 +34,12 @@ int thishue = 0;             //-FX LOOPS DELAY VAR
 int thissat = 255;           //-FX LOOPS DELAY VAR
 
 int thisindex = 0;
-int thisRED = 0;
-int thisGRN = 0;
-int thisBLU = 0;
 
 int idex = 0;                //-LED INDEX (0 to LED_COUNT-1
 int ihue = 0;                //-HUE (0-255)
 int ibright = 0;             //-BRIGHTNESS (0-255)
 int isat = 0;                //-SATURATION (0-255)
 int bouncedirection = 0;     //-SWITCH FOR COLOR BOUNCE (0-1)
-float tcount = 0.0;          //-INC VAR FOR SIN LOOPS
-int lcount = 0;              //-ANOTHER COUNTING VAR
 // ---------------СЛУЖЕБНЫЕ ПЕРЕМЕННЫЕ-----------------
 
 void one_color_all(int cred, int cgrn, int cblu) {       //-SET ALL LEDS TO ONE COLOR
