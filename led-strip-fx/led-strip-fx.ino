@@ -101,7 +101,6 @@ void change_mode(int newmode) {
     //---PLACEHOLDER FOR COLOR LOOP VAR DELAY VARS
     case 19: thisdelay = 35; thishue = 180; break;      //---SIN WAVE BRIGHTNESS
     case 20: thisdelay = 100; thishue = 0; break;       //---POP LEFT/RIGHT
-    case 21: thisdelay = 100; thishue = 180; break;     //---QUADRATIC BRIGHTNESS CURVE
     //---PLACEHOLDER FOR FLAME VARS
     case 23: thisdelay = 50; thisstep = 15; break;      //---VERITCAL RAINBOW
     case 25: thisdelay = 35; break;                     //---RANDOM COLOR POP
@@ -163,7 +162,6 @@ void loop() {
     case 18: white_temps(); break;             // бело синий градиент (?)
     case 19: sin_bright_wave(); break;         // тоже хрень какая то
     case 20: pop_horizontal(); break;          // красные вспышки спускаются вниз
-    case 21: quad_bright_curve(); break;       // полумесяц
     case 22: flame(); break;                   // эффект пламени
     case 23: rainbow_vertical(); break;        // радуга в вертикаьной плоскости (кольцо)
     case 25: random_color_pop(); break;        // безумие случайных вспышек
@@ -194,7 +192,6 @@ void loop() {
     case 46: BouncingColoredBalls(3, ballColors); break;                            // прыгающие мячики цветные
 case 50: rule30_orange(); break;
 case 51: random_march(90); break;            // безумие случайных цветов
-case 52: kitt2(); break;
 case 53: RunningLights(0xff, 0x6b, 0x00, thisdelay); break;                     // бегущие огни
 case 54: Sparkle(0xff, 0x6b, 0x00, 0); break;                           // случайные вспышки белого цвета
 case 55: Sparkle(0xff, 0x6b, 0x00, 5); break;                           // случайные вспышки белого цвета

@@ -454,25 +454,6 @@ void pop_horizontal() {        //-m20-POP FROM LEFT TO RIGHT UP THE RING
   delay(thisdelay);
 }
 
-void quad_bright_curve() {      //-m21-QUADRATIC BRIGHTNESS CURVER
-  int ax;
-  for (int x = 0; x < LED_COUNT; x++ ) {
-    if (x <= TOP_INDEX) {
-      ax = x;
-    }
-    else if (x > TOP_INDEX) {
-      ax = LED_COUNT - x;
-    }
-    int a = 1; int b = 1; int c = 0;
-    int iquad = -(ax * ax * a) + (ax * b) + c; //-ax2+bx+c
-    int hquad = -(TOP_INDEX * TOP_INDEX * a) + (TOP_INDEX * b) + c;
-    ibright = int((float(iquad) / float(hquad)) * 255);
-    leds[x] = CHSV(thishue, thissat, ibright);
-  }
-  LEDS.show();
-  delay(thisdelay);
-}
-
 void flame() {                                    //-m22-FLAMEISH EFFECT
   int idelay = random(0, 35);
   float hmin = 0.1; float hmax = 45.0;
@@ -611,22 +592,6 @@ void kitt() {                                     //-m28-KNIGHT INDUSTIES 2000
     delay(thisdelay / rand);
   }
 }
-void kitt2() {                                     //-m28-KNIGHT INDUSTIES 2000
-  int rand = random(0, TOP_INDEX);
-  for (int i = 0; i < rand; i++ ) {
-    leds[TOP_INDEX + i] = CHSV(24, 100, 100);
-    leds[TOP_INDEX - i] = CHSV(24, 100, 100);
-    LEDS.show();
-    delay(thisdelay / rand);
-  }
-  for (int i = rand; i > 0; i-- ) {
-    leds[TOP_INDEX + i] = CHSV(24, 100, 0);
-    leds[TOP_INDEX - i] = CHSV(24, 100, 0);
-    LEDS.show();
-    delay(thisdelay / rand);
-  }
-}
-
 
 void matrix() {                                   //-m29-ONE LINE MATRIX
   int rand = random(0, 100);
