@@ -1,10 +1,10 @@
 #define DATA_PIN 5
 #define LATCH_PIN 4
 #define CLOCK_PIN 3
-#define BUTTON_PIN 14
+#define BUTTON_PIN 13
 
-int clicks = 0;
-boolean buttonPrevState = true;
+int clicks = 9;
+boolean buttonPrevState = false;
 byte segments[10] = {
   0b01111101,
   0b00100100,
@@ -26,12 +26,12 @@ void setup() {
 }
 
 void loop() {
-  if (!buttonPrevState && digitalRead(BUTTON_PIN)) {
+  boolean btnState = digitalRead(BUTTON_PIN);
+  if (!buttonPrevState && btnState) {
     clicks = (clicks + 1) % 10;
+    digitalWrite(LATCH_PIN, LOW);
+    shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, segments[clicks]);
+    digitalWrite(LATCH_PIN, HIGH);
   }
-  buttonPrevState = digitalRead(BUTTON_PIN);
-
-  digitalWrite(LATCH_PIN, LOW);
-  shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, segments[clicks]);
-  digitalWrite(LATCH_PIN, HIGH);
+  buttonPrevState = btnState;
 }
