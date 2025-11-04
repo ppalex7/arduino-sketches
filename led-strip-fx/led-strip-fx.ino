@@ -7,12 +7,61 @@
 */
 
 #include "FastLED.h"          // библиотека для работы с лентой
+#include <avr/interrupt.h>
+#include <EEPROM.h>
 
 #define LED_COUNT 226          // число светодиодов в кольце/ленте
 #define LED_DT 14            // пин, куда подключен DIN ленты
 
+#define EB_NO_FOR
+#define EB_DEB_TIME 0
+#define EB_HOLD_TIME 2000  // таймаут удержания (кнопка)
+#include <EncButton.h>
+
+
+#undef DEBUG
+
+#define LED_Y 6
+#define LED_R 5
+#define LED_G 8
+
+//pcint18, 19 - PCINT2
+#define ENC_S1 2
+#define ENC_S2 3
+#define ENC_VCC 4
+#define ENC_GND 7
+// pcint1
+#define ENC_BTN 9
+
+#define MIN_DELAY 0
+#define MAX_DELAY 150
+#define MIN_BRIGHTNESS 1
+#define MAX_BRIGHTNESS 255
+
+#define EEPROM_BRIGHTNESS 0
+#define EEPROM_SPEED 4
+#define EEPROM_FX 8
+#define DEFAULT_TIMEOUT 30
+
+EncButtonT<ENC_S1, ENC_S2, ENC_BTN> eb;
+
+enum Switch {
+  BRIGHTNESS,
+  SPEED,
+  FX,
+  IDLE
+};
+const uint8_t status_leds[] = { LED_G, LED_R, LED_Y };
+
+volatile Switch mode;
+volatile bool selected;
+volatile uint8_t timeout = 0;
+
+byte fav_modes[] = { 2, 30, 37, 3, 23, 22, 14, 4, 35, 43, 33, 42, 17, 29, 39, 7, 5, 6, 34, 11, 13, 28, 25, 38, 40, 41, 10, 18, 21};  // список "любимых" режимов
+
 int max_bright;  // максимальная яркость (0 - 255)
 int ledMode;
+int led_fx = 0;
 
 // ---------------СЛУЖЕБНЫЕ ПЕРЕМЕННЫЕ-----------------
 int BOTTOM_INDEX = 0;        // светодиод начала отсчёта
@@ -51,6 +100,51 @@ void one_color_allHSV(int ahue) {    //-SET ALL LEDS TO ONE COLOR (HSV)
 
 void setup()
 {
+#ifdef DEBUG
+  Serial.begin(115200);
+#endif
+
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  pinMode(LED_Y, OUTPUT);
+  pinMode(LED_R, OUTPUT);
+  pinMode(LED_G, OUTPUT);
+
+  pinMode(ENC_VCC, OUTPUT);
+  pinMode(ENC_GND, OUTPUT);
+  pinMode(ENC_BTN, INPUT_PULLUP);
+
+  digitalWrite(ENC_VCC, HIGH);
+
+  noInterrupts();
+
+  // encoder interrupts
+  PCMSK2 = (1 << PCINT19) | (1 << PCINT18);
+  PCMSK0 = (1 << PCINT1);
+  PCICR = (1 << PCIE2) | (1 << PCIE0);
+  eb.setEncISR(true);
+  eb.attach(handler);
+
+  // configure timer for mode blinker
+  TCCR1A = 0;
+  // CTC (Clear Timer on Compare Match) и предделитель 256
+  TCCR1B = (1 << WGM12) | (1 << CS12);
+  // для результата в 2 Гц
+  OCR1A = F_CPU / 256 / 2;
+  TIMSK1 |= (1 << OCIE1A);
+
+  interrupts();
+
+  // restore settings
+  load_settings();
+#ifdef DEBUG
+  Serial.println(F("setup finished"));
+#endif
+
+#ifdef DEBUG
+  handler();  // log current state
+#endif
+
   FastLED.setBrightness(max_bright);  // ограничить максимальную яркость
   FastLED.addLeds<WS2813, LED_DT, RGB>(leds, LED_COUNT);  // настрйоки для нашей ленты (ленты на WS2811, WS2812, WS2812B)
   one_color_all(0, 0, 0);          // погасить все светодиоды
@@ -98,7 +192,7 @@ void change_mode(int newmode) {
 }
 
 void loop() {
-
+  eb.tick();
   switch (ledMode) {
     case 999: break;                           // пазуа
     case  2: rainbow_fade(); break;            // плавная смена цветов всей ленты
@@ -134,4 +228,211 @@ void loop() {
     case 42: theaterChase(0xff, 0, 0, thisdelay); break;                            // бегущие каждые 3 (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
     case 43: theaterChaseRainbow(thisdelay); break;                                 // бегущие каждые 3 радуга (ЧИСЛО СВЕТОДИОДОВ ДОЛЖНО БЫТЬ КРАТНО 3)
   }
+  changeFlag = false;
+}
+
+ISR(PCINT2_vect) {
+  changeFlag = true;
+  eb.tickISR();
+}
+
+ISR(PCINT0_vect) {
+  changeFlag = true;
+  eb.tickISR();
+}
+
+ISR(TIMER1_COMPA_vect) {
+  if (timeout) {
+    timeout--;
+  }
+  if (mode != Switch::IDLE && !timeout) {
+    mode = Switch::IDLE;
+    selected = false;
+  }
+  for (int i = 0; i < sizeof(status_leds) / sizeof(status_leds[0]); ++i) {
+    uint8_t pin = status_leds[i];
+    bool newValue = i == mode ? selected
+                                  ? 1
+                                  : !digitalRead(pin)
+                              : 0;
+    digitalWrite(status_leds[i], newValue);
+  }
+  digitalWrite(LED_BUILTIN,
+               thisdelay == MIN_DELAY
+                 || max_bright == MIN_BRIGHTNESS
+                 || thisdelay == MAX_DELAY
+                 || max_bright == MAX_BRIGHTNESS);
+}
+
+void nextMode() {
+  if (mode >= Switch::FX) {
+    mode = Switch::BRIGHTNESS;
+  } else {
+    mode = static_cast<Switch>(static_cast<int>(mode) + 1);
+  }
+}
+
+void prevMode() {
+  if (mode == Switch::BRIGHTNESS) {
+    mode = Switch::FX;
+  } else {
+    mode = static_cast<Switch>(static_cast<int>(mode) - 1);
+  }
+}
+
+void constrain_and_apply_fx() {
+  if (led_fx < 0) {
+    led_fx = sizeof(fav_modes) - 1;
+  } else if (led_fx >= sizeof(fav_modes)) {
+    led_fx = 0;
+  }
+  change_mode(fav_modes[led_fx]);
+}
+
+void load_settings() {
+  EEPROM.get(EEPROM_BRIGHTNESS, max_bright);
+  EEPROM.get(EEPROM_SPEED, thisdelay);
+  EEPROM.get(EEPROM_FX, led_fx);
+#ifdef DEBUG
+  Serial.print(F("Loaded from eeprom: brightness "));
+  Serial.print(max_bright);
+  Serial.print(F(", delay "));
+  Serial.print(thisdelay);
+  Serial.print(F(", fx_num "));
+  Serial.println(led_fx);
+#endif
+  max_bright = constrain(max_bright, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+  thisdelay = constrain(thisdelay, MIN_DELAY, MAX_DELAY);
+
+  constrain_and_apply_fx();
+}
+
+void save_settings() {
+  EEPROM.put(EEPROM_BRIGHTNESS, max_bright);
+  EEPROM.put(EEPROM_SPEED, thisdelay);
+  EEPROM.put(EEPROM_FX, led_fx);
+#ifdef DEBUG
+  Serial.println(F("Saved settings to EEPROM"));
+#endif
+}
+
+void handler() {
+#ifdef DEBUG
+  Serial.print(F("callback: "));
+#endif
+  switch (eb.action()) {
+    case EB_HOLD:
+#ifdef DEBUG
+      Serial.println(F("hold"));
+#endif
+      save_settings();
+      break;
+    case EB_CLICK:
+      if (mode == Switch::IDLE) {
+        nextMode();
+      } else {
+        selected = !selected;
+      }
+      timeout = DEFAULT_TIMEOUT;
+#ifdef DEBUG
+      Serial.println(F("click"));
+#endif
+      break;
+    case EB_TURN:
+      timeout = DEFAULT_TIMEOUT;
+#ifdef DEBUG
+      Serial.print(F("turn "));
+      Serial.print(eb.dir());
+      Serial.print(' ');
+      Serial.print(eb.fast());
+      Serial.print(' ');
+      Serial.println(eb.pressing());
+#endif
+      if (selected) {
+        switch (mode) {
+          case Switch::BRIGHTNESS:
+            max_bright = constrain(
+              max_bright + eb.dir() * (eb.fast() ? 5 : 1),
+              MIN_BRIGHTNESS,
+              MAX_BRIGHTNESS);
+            FastLED.setBrightness(max_bright);
+            break;
+          case Switch::SPEED:
+            thisdelay = constrain(
+              thisdelay - eb.dir() * (eb.fast() ? 3 : 1),
+              MIN_DELAY,
+              MAX_DELAY);
+            break;
+          case Switch::FX:
+            led_fx = led_fx + eb.dir();
+            constrain_and_apply_fx();
+            break;
+          case Switch::IDLE:
+            nextMode();
+            break;
+        }
+      } else {
+        if (eb.left()) {
+          nextMode();
+#ifdef DEBUG
+          Serial.println(F("left "));
+#endif
+        } else if (eb.right()) {
+          prevMode();
+#ifdef DEBUG
+          Serial.println(F("right "));
+#endif
+        }
+#ifdef DEBUG
+        Serial.print(F("new mode is "));
+        Serial.println(mode);
+#endif
+      }
+      break;
+#ifdef DEBUG
+    case EB_PRESS:
+      Serial.println("press");
+      break;
+    case EB_STEP:
+      Serial.println("step");
+      break;
+    case EB_RELEASE:
+      Serial.println("release");
+      break;
+    case EB_CLICKS:
+      Serial.print("clicks ");
+      Serial.println(eb.getClicks());
+      break;
+    case EB_REL_HOLD:
+      Serial.println("release hold");
+      break;
+    case EB_REL_HOLD_C:
+      Serial.print("release hold clicks ");
+      Serial.println(eb.getClicks());
+      break;
+    case EB_REL_STEP:
+      Serial.println("release step");
+      break;
+    case EB_REL_STEP_C:
+      Serial.print("release step clicks ");
+      Serial.println(eb.getClicks());
+      break;
+#endif
+  }
+#ifdef DEBUG
+  Serial.print(F("  mode "));
+  Serial.print(mode);
+  Serial.print(F(", selected "));
+  Serial.print(selected);
+  Serial.print(F(", timeout "));
+  Serial.print(timeout);
+  Serial.print(F(", led_fx "));
+  Serial.print(led_fx);
+  Serial.print(" / ");
+  Serial.print(ledMode);
+  Serial.print(F(", brightness "));
+  Serial.print(max_bright);
+  Serial.print(F(", delay "));
+  Serial.println(thisdelay);
+#endif
 }
