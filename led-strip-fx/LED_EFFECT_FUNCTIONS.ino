@@ -361,7 +361,6 @@ void flame() {                                    //-m22-FLAMEISH EFFECT
     leds[i] = CHSV(ihue, thissat, 255);
     int ih = horizontal_index(i);
     leds[ih] = CHSV(ihue, thissat, 255);
-    leds[TOP_INDEX].r = 255; leds[TOP_INDEX].g = 255; leds[TOP_INDEX].b = 255;
     FastLED.show();
     if (safeDelay(idelay)) return;
   }

@@ -55,6 +55,8 @@ const uint8_t status_leds[] = { LED_G, LED_R, LED_Y };
 volatile Switch mode;
 volatile bool selected;
 volatile uint8_t timeout = 0;
+volatile uint8_t pauseBlink = 0;
+
 
 byte fav_modes[] = { 2, 30, 37, 3, 23, 22, 14, 4, 35, 43, 33, 42, 17, 29, 39, 7, 5, 6, 34, 11, 13, 28, 25, 38, 40, 41, 10, 18, 21};  // список "любимых" режимов
 
@@ -69,7 +71,7 @@ int EVENODD = LED_COUNT % 2;
 struct CRGB leds[LED_COUNT];
 uint8_t ledsX[LED_COUNT][3]; //-ARRAY FOR COPYING WHATS IN THE LED STRIP CURRENTLY (FOR CELL-AUTOMATA, MARCH, ETC)
 
-int thisdelay = 20;          //-FX LOOPS DELAY VAR
+volatile int thisdelay = 20; //-FX LOOPS DELAY VAR
 int thisstep = 10;           //-FX LOOPS DELAY VAR
 int thishue = 0;             //-FX LOOPS DELAY VAR
 int thissat = 255;           //-FX LOOPS DELAY VAR
@@ -231,12 +233,10 @@ void loop() {
 }
 
 ISR(PCINT2_vect) {
-  changeFlag = true;
   eb.tickISR();
 }
 
 ISR(PCINT0_vect) {
-  changeFlag = true;
   eb.tickISR();
 }
 
@@ -244,9 +244,20 @@ ISR(TIMER1_COMPA_vect) {
   if (timeout) {
     timeout--;
   }
+  if (pauseBlink) {
+    pauseBlink--;
+  }
   if (mode != Switch::IDLE && !timeout) {
     mode = Switch::IDLE;
     selected = false;
+  }
+  digitalWrite(LED_BUILTIN,
+              thisdelay == MIN_DELAY
+                || max_bright == MIN_BRIGHTNESS
+                || thisdelay == MAX_DELAY
+                || max_bright == MAX_BRIGHTNESS);
+  if (pauseBlink) {
+    return;
   }
   for (int i = 0; i < sizeof(status_leds) / sizeof(status_leds[0]); ++i) {
     uint8_t pin = status_leds[i];
@@ -256,11 +267,6 @@ ISR(TIMER1_COMPA_vect) {
                               : 0;
     digitalWrite(status_leds[i], newValue);
   }
-  digitalWrite(LED_BUILTIN,
-               thisdelay == MIN_DELAY
-                 || max_bright == MIN_BRIGHTNESS
-                 || thisdelay == MAX_DELAY
-                 || max_bright == MAX_BRIGHTNESS);
 }
 
 void nextMode() {
@@ -325,7 +331,10 @@ void handler() {
       Serial.println(F("hold"));
 #endif
       save_settings();
-      break;
+      pauseBlink = 4;
+      for (int i = 0; i < sizeof(status_leds) / sizeof(status_leds[0]); ++i) {
+        digitalWrite(status_leds[i], HIGH);
+      }
     case EB_CLICK:
       if (mode == Switch::IDLE) {
         nextMode();
@@ -364,7 +373,9 @@ void handler() {
             break;
           case Switch::FX:
             led_fx = led_fx + eb.dir();
+            changeFlag = true;
             constrain_and_apply_fx();
+            changeFlag = true;
             break;
           case Switch::IDLE:
             nextMode();
@@ -388,15 +399,18 @@ void handler() {
 #endif
       }
       break;
+      case EB_RELEASE:
+#ifdef DEBUG
+      Serial.println("release");
+#endif
+      pauseBlink = 0;
+      break;
 #ifdef DEBUG
     case EB_PRESS:
       Serial.println("press");
       break;
     case EB_STEP:
       Serial.println("step");
-      break;
-    case EB_RELEASE:
-      Serial.println("release");
       break;
     case EB_CLICKS:
       Serial.print("clicks ");
