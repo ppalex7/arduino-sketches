@@ -188,7 +188,7 @@ void random_orange() {                       //QUICK 'N DIRTY RANDOMIZE TO GET C
 
 void rule30_orange() {                          //-m13-1D CELLULAR AUTOMATA - RULE 30
   if (!bouncedirection) {
-    random_red();
+    random_orange();
     bouncedirection = true;
   }
 
