@@ -1,9 +1,8 @@
 /*
-  Copy from https://github.com/AlexGyver/WS2812_FX
   Скетч создан на основе FASTSPI2 EFFECTS EXAMPLES автора teldredge (www.funkboxing.com)
   А также вот этой статьи https://www.tweaking4all.com/hardware/arduino/adruino-led-strip-effects/#cylon
-  Доработан, переведён и разбит на файлы 2017 AlexGyver
-  Отправляем в монитор порта номер режима, он активируется
+  Доработан, переведён и разбит на файлы 2017 AlexGyver https://github.com/AlexGyver/WS2812_FX
+  Фикс потребления памяти из https://github.com/aleksandrbeljakov/WS2812_FX
 */
 
 #include "FastLED.h"          // библиотека для работы с лентой
